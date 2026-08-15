@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Exo_2 } from "next/font/google";
+import { Baloo_Da_2, Exo_2 } from "next/font/google";
 
 import "./globals.css";
 
 const exo2 = Exo_2({
   variable: "--font-exo-2",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const balooDa2 = Baloo_Da_2({
+  variable: "--font-baloo-da-2",
+  subsets: ["bengali", "latin"],
   display: "swap",
 });
 
@@ -29,7 +35,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${exo2.variable} h-full antialiased`}
+      className={`${exo2.variable} ${balooDa2.variable} h-full antialiased`}
     >
       <body
         suppressHydrationWarning

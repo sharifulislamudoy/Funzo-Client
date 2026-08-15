@@ -83,6 +83,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const { itemCount } = useCart();
 
+  const isHomePage = pathname === "/";
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -96,8 +98,20 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/90 backdrop-blur-xl">
-        <div className="mx-auto grid h-[70px] w-full max-w-7xl grid-cols-[48px_1fr_48px] items-center px-4 sm:h-[76px] sm:px-6 lg:grid-cols-[1fr_auto_1fr] lg:px-8">
+      <header
+        className={
+          isHomePage
+            ? "absolute inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4 lg:px-8"
+            : "sticky top-0 z-50 border-b border-zinc-200/80 bg-white"
+        }
+      >
+        <div
+          className={`mx-auto grid w-full max-w-7xl grid-cols-[48px_minmax(0,1fr)_48px] items-center transition-all duration-300 lg:grid-cols-[minmax(220px,1fr)_auto_minmax(220px,1fr)] ${
+            isHomePage
+              ? "h-[62px] rounded-full border border-white/70 bg-white/88 px-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.2)] backdrop-blur-xl sm:h-[68px] sm:px-4 lg:px-5"
+              : "h-[70px] px-4 sm:h-[76px] sm:px-6 lg:px-8"
+          }`}
+        >
           {/* Left side */}
           <div className="flex min-w-0 items-center gap-3 lg:gap-4">
             <RoundAction
@@ -111,13 +125,13 @@ export default function Navbar() {
               />
             </RoundAction>
 
-            {/* Desktop logo only */}
+            {/* Desktop logo */}
             <div className="hidden lg:block">
               <BrandLogo />
             </div>
           </div>
 
-          {/* Mobile and tablet logo only */}
+          {/* Mobile and tablet centered logo */}
           <div className="flex min-w-0 justify-center lg:hidden">
             <BrandLogo />
           </div>
@@ -125,7 +139,11 @@ export default function Navbar() {
           {/* Desktop middle navigation */}
           <nav
             aria-label="Primary navigation"
-            className="hidden items-center gap-1 rounded-full border border-zinc-200 bg-[#f7f8f4] p-1.5 lg:flex"
+            className={`hidden items-center gap-1 rounded-full border p-1.5 lg:flex ${
+              isHomePage
+                ? "border-black/10 bg-white/55"
+                : "border-zinc-200 bg-[#f7f8f4]"
+            }`}
           >
             {desktopNavigation.map(({ label, href }) => {
               const active = isCurrentRoute(pathname, href);

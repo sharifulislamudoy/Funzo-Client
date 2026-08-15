@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #141414;
+
   --funzo-dark: #141414;
   --funzo-lime: #bdff11;
   --funzo-muted: #6b7280;
@@ -12,14 +13,76 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --font-sans:
+    var(--font-exo-2),
+    var(--font-baloo-da-2),
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  --font-english:
+    var(--font-exo-2),
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  --font-bangla:
+    var(--font-baloo-da-2),
+    sans-serif;
+}
+
+html {
+  min-height: 100%;
+  background: var(--background);
 }
 
 body {
+  min-height: 100%;
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+
+  font-family:
+    var(--font-exo-2),
+    var(--font-baloo-da-2),
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/*
+ * কোনো element-এ lang="bn" ব্যবহার করলে
+ * Baloo Da 2 নিশ্চিতভাবে apply হবে।
+ */
+:lang(bn),
+[lang="bn"],
+.font-bangla {
+  font-family:
+    var(--font-baloo-da-2),
+    sans-serif;
+}
+
+/*
+ * প্রয়োজন হলে নির্দিষ্ট element-এ
+ * Exo 2 force করার utility।
+ */
+.font-english {
+  font-family:
+    var(--font-exo-2),
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
 button,
