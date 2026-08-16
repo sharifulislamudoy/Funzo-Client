@@ -29,16 +29,16 @@ export default function MenuDrawer({ open, onClose }: MenuDrawerProps) {
                 key={href}
                 href={href}
                 onClick={onClose}
-                className={`group flex min-h-12 items-center gap-3 rounded-2xl px-3.5 text-sm font-bold transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#141414] ${
+                className={`group flex min-h-12 items-center gap-3 rounded-2xl px-3.5 text-sm font-bold transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bdff11] ${
                   active
-                    ? "bg-[#141414] text-white"
-                    : "text-zinc-700 hover:translate-x-1 hover:bg-[#f4f5f0] hover:text-[#141414]"
+                    ? "bg-[#bdff11] text-[#070908]"
+                    : "text-[#a7afa5] hover:translate-x-1 hover:bg-white/[0.06] hover:text-[#f4f7ef]"
                 }`}
               >
                 <span className={`grid size-8 shrink-0 place-items-center rounded-xl transition-colors ${
                   active
                     ? "bg-[#bdff11] text-[#141414]"
-                    : "bg-zinc-100 text-zinc-600 group-hover:bg-[#bdff11] group-hover:text-[#141414]"
+                    : "bg-white/[0.055] text-[#9ba39a] group-hover:bg-[#bdff11] group-hover:text-[#070908]"
                 }`}>
                   <Icon aria-hidden="true" size={17} strokeWidth={2.2} />
                 </span>

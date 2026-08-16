@@ -11,7 +11,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <CartProvider>
       <WishlistProvider>
-        <div className="flex min-h-screen flex-col bg-white">
+        <div className="flex min-h-screen flex-col bg-[#070908] text-[#f4f7ef]">
           <Navbar />
           <main className="flex flex-1 flex-col pb-20 lg:pb-0">{children}</main>
           <BottomNavigation />

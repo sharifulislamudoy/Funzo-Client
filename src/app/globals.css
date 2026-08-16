@@ -1,13 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #141414;
+  color-scheme: dark;
 
-  --funzo-dark: #141414;
+  --background: #070908;
+  --foreground: #f4f7ef;
+
+  --funzo-dark: #070908;
   --funzo-lime: #bdff11;
-  --funzo-muted: #6b7280;
-  --funzo-line: #e7e7e7;
+  --funzo-surface: #0e110f;
+  --funzo-surface-alt: #151915;
+  --funzo-elevated: #1b201b;
+  --funzo-muted: #9ba39a;
+  --funzo-line: #293027;
 }
 
 @theme inline {
@@ -54,6 +59,17 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle at 8% 4%, rgba(189, 255, 17, 0.08), transparent 24rem),
+    radial-gradient(circle at 92% 36%, rgba(189, 255, 17, 0.035), transparent 28rem);
+}
+
 button,
 input,
 textarea,
@@ -97,4 +113,8 @@ button {
 ::selection {
   background: var(--funzo-lime);
   color: var(--funzo-dark);
+}
+
+* {
+  scrollbar-color: #394136 #0e110f;
 }

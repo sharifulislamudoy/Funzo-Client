@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function ShopPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+    <Suspense fallback={<div className="min-h-screen bg-[#070908]" />}>
       <ShopCatalog />
     </Suspense>
   );

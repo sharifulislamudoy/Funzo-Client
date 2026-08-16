@@ -52,18 +52,18 @@ export default function Drawer({ open, side, title, onClose, children }: DrawerP
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className={`absolute ${placement} top-0 flex h-full w-[min(90vw,420px)] flex-col bg-white shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`absolute ${placement} top-0 flex h-full w-[min(90vw,420px)] flex-col border-white/10 bg-[#0b0e0c] text-[#f4f7ef] shadow-[0_0_80px_rgba(0,0,0,0.55)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           open ? "translate-x-0" : closedPosition
-        }`}
+        } ${side === "left" ? "border-r" : "border-l"}`}
       >
-        <div className="flex h-[70px] shrink-0 items-center justify-between border-b border-zinc-200 px-5 sm:h-[76px] sm:px-6">
-          <h2 className="text-lg font-black tracking-tight text-[#141414]">{title}</h2>
+        <div className="flex h-[70px] shrink-0 items-center justify-between border-b border-white/10 px-5 sm:h-[76px] sm:px-6">
+          <h2 className="text-lg font-black tracking-tight text-[#f4f7ef]">{title}</h2>
           <button
             type="button"
             onClick={onClose}
             tabIndex={open ? 0 : -1}
             aria-label={`Close ${title}`}
-            className="grid size-10 place-items-center rounded-full border border-zinc-200 text-[#141414] transition duration-300 hover:rotate-90 hover:border-[#141414] hover:bg-[#141414] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#141414]"
+            className="grid size-10 place-items-center rounded-full border border-white/10 bg-white/[0.035] text-[#f4f7ef] transition duration-300 hover:rotate-90 hover:border-[#bdff11] hover:bg-[#bdff11] hover:text-[#070908] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bdff11]"
           >
             <X aria-hidden="true" size={19} strokeWidth={2.4} />
           </button>

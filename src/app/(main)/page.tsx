@@ -8,7 +8,7 @@ const HERO_VIDEO_URL =
 
 export default function HomePage() {
   return (
-    <div className="overflow-hidden bg-white">
+    <div className="overflow-hidden bg-[#070908]">
       <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#141414] text-white">
         <video
           aria-hidden="true"
@@ -24,7 +24,7 @@ export default function HomePage() {
 
         <div className="pointer-events-none absolute inset-0 bg-black/55" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.46)_52%,rgba(0,0,0,0.2)_100%)]" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#070908] via-black/70 to-transparent" />
 
         <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-7xl items-center px-4 pb-28 pt-32 sm:px-6 sm:pb-32 sm:pt-36 lg:px-8 lg:pb-20 lg:pt-40">
           <div className="max-w-3xl">

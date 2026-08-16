@@ -21,21 +21,23 @@ export default function FeaturedProductsSection({
   return (
     <section
       aria-labelledby="featured-products-title"
-      className="bg-white py-12 sm:py-16 lg:py-20"
+      className="relative overflow-hidden bg-[#070908] py-12 sm:py-16 lg:py-20"
     >
+      <div className="pointer-events-none absolute left-1/2 top-0 h-px w-[min(90%,80rem)] -translate-x-1/2 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+      <div className="pointer-events-none absolute -right-40 top-20 size-96 rounded-full bg-[#bdff11]/5 blur-3xl" />
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-7 flex items-end justify-between gap-4 sm:mb-9">
           <div className="max-w-2xl">
-            <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#78a800] sm:text-xs">
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#bdff11] sm:text-xs">
               Handpicked by Funzo
             </p>
             <h2
               id="featured-products-title"
-              className="mt-2 text-3xl font-black tracking-[-0.04em] text-[#141414] sm:text-4xl lg:text-5xl"
+              className="mt-2 text-3xl font-black tracking-[-0.04em] text-[#f4f7ef] sm:text-4xl lg:text-5xl"
             >
               Featured RC machines
             </h2>
-            <p className="mt-3 hidden max-w-xl text-sm leading-6 text-zinc-500 sm:block sm:text-base">
+            <p className="mt-3 hidden max-w-xl text-sm leading-6 text-[#9ba39a] sm:block sm:text-base">
               Discover the standout cars selected for speed, control and serious
               fun.
             </p>
@@ -43,7 +45,7 @@ export default function FeaturedProductsSection({
 
           <Link
             href="/shop"
-            className="group inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-full border border-zinc-200 bg-white px-4 text-xs font-extrabold text-[#141414] shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#141414] hover:bg-[#141414] hover:text-white sm:h-11 sm:gap-2 sm:px-5 sm:text-sm"
+            className="group inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-full border border-white/12 bg-white/[0.04] px-4 text-xs font-extrabold text-[#f4f7ef] transition duration-300 hover:-translate-y-0.5 hover:border-[#bdff11] hover:bg-[#bdff11] hover:text-[#070908] sm:h-11 sm:gap-2 sm:px-5 sm:text-sm"
           >
             View all
             <ArrowRight

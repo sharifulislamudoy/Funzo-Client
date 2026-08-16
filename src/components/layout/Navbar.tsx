@@ -41,10 +41,10 @@ function RoundAction({
   href,
   children,
 }: RoundActionProps) {
-  const className = `relative grid size-11 shrink-0 place-items-center rounded-full border transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#141414] ${
+  const className = `relative grid size-11 shrink-0 place-items-center rounded-full border transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bdff11] ${
     active
-      ? "border-[#141414] bg-[#141414] text-white"
-      : "border-zinc-200 bg-white text-[#141414] hover:-translate-y-0.5 hover:border-[#141414]/35 hover:bg-[#f5f6f1] hover:shadow-md"
+      ? "border-[#bdff11] bg-[#bdff11] text-[#070908] shadow-[0_0_24px_rgba(189,255,17,0.15)]"
+      : "border-white/10 bg-white/[0.055] text-[#f4f7ef] hover:-translate-y-0.5 hover:border-[#bdff11]/45 hover:bg-white/10 hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
   }`;
 
   const content = (
@@ -52,7 +52,7 @@ function RoundAction({
       {children}
 
       {typeof count === "number" && count > 0 && (
-        <span className="absolute -right-1 -top-1 grid min-h-5 min-w-5 place-items-center rounded-full bg-[#bdff11] px-1 text-[10px] font-black leading-none text-[#141414] ring-2 ring-white">
+        <span className="absolute -right-1 -top-1 grid min-h-5 min-w-5 place-items-center rounded-full bg-[#bdff11] px-1 text-[10px] font-black leading-none text-[#070908] ring-2 ring-[#0c0f0d]">
           {count > 99 ? "99+" : count}
         </span>
       )}
@@ -108,8 +108,8 @@ export default function Navbar() {
         <div
           className={`pointer-events-auto relative mx-auto mt-3 grid h-[62px] w-[calc(100%-1.5rem)] max-w-7xl grid-cols-[48px_minmax(0,1fr)_48px] items-center rounded-full border px-2.5 backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:mt-4 sm:h-[68px] sm:w-[calc(100%-2.5rem)] sm:px-4 lg:w-[calc(100%-4rem)] lg:grid-cols-[minmax(220px,1fr)_auto_minmax(220px,1fr)] lg:px-5 ${
             isHomePage
-              ? "border-white/70 bg-white/88 shadow-[0_12px_40px_rgba(0,0,0,0.2)]"
-              : "border-zinc-200/90 bg-white shadow-[0_12px_35px_rgba(20,20,20,0.1)]"
+              ? "border-white/12 bg-[#0b0e0c]/80 shadow-[0_18px_55px_rgba(0,0,0,0.38)]"
+              : "border-white/10 bg-[#0b0e0c]/94 shadow-[0_18px_55px_rgba(0,0,0,0.34)]"
           }`}
         >
           {/* Left side */}
@@ -141,8 +141,8 @@ export default function Navbar() {
             aria-label="Primary navigation"
             className={`hidden items-center gap-1 rounded-full border p-1.5 transition-[background-color,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none lg:flex ${
               isHomePage
-                ? "border-black/10 bg-white/55"
-                : "border-zinc-200 bg-[#f7f8f4]"
+                ? "border-white/10 bg-black/20"
+                : "border-white/10 bg-white/[0.045]"
             }`}
           >
             {desktopNavigation.map(({ label, href }) => {
@@ -153,10 +153,10 @@ export default function Navbar() {
                   key={href}
                   href={href}
                   aria-current={active ? "page" : undefined}
-                  className={`relative rounded-full px-4 py-2 text-sm font-extrabold transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#141414] ${
+                  className={`relative rounded-full px-4 py-2 text-sm font-extrabold transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bdff11] ${
                     active
-                      ? "bg-[#141414] text-white shadow-sm"
-                      : "text-zinc-600 hover:bg-white hover:text-[#141414]"
+                      ? "bg-[#bdff11] text-[#070908] shadow-[0_8px_24px_rgba(189,255,17,0.13)]"
+                      : "text-[#a7afa5] hover:bg-white/[0.07] hover:text-white"
                   }`}
                 >
                   {label}

@@ -30,7 +30,7 @@ export default function ShopCatalog() {
   }, [category, query]);
 
   return (
-    <div className="bg-white pb-16 sm:pb-20">
+    <div className="bg-[#070908] pb-16 sm:pb-20">
       <section className="mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8">
         <div className="relative isolate min-h-[210px] overflow-hidden rounded-[26px] bg-[#141414] sm:min-h-[285px] lg:min-h-[330px]">
           <img
@@ -55,27 +55,27 @@ export default function ShopCatalog() {
       </section>
 
       <section aria-labelledby="shop-title" className="mx-auto w-full max-w-7xl px-4 pt-14 sm:px-6 sm:pt-20 lg:px-8">
-        <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-[#78a800]">Shop</p>
-        <h2 id="shop-title" className="mt-2 text-4xl font-black tracking-[-0.045em] text-[#141414] sm:text-5xl lg:text-6xl">
+        <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-[#bdff11]">Shop</p>
+        <h2 id="shop-title" className="mt-2 text-4xl font-black tracking-[-0.045em] text-[#f4f7ef] sm:text-5xl lg:text-6xl">
           Everything in one place.
         </h2>
-        <p className="mt-3 text-sm leading-6 text-zinc-500 sm:text-base">
+        <p className="mt-3 text-sm leading-6 text-[#9ba39a] sm:text-base">
           Free delivery across Bangladesh, cash on delivery available, easy returns.
         </p>
 
         <label className="relative mt-7 block max-w-md">
-          <Search aria-hidden="true" size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" />
+          <Search aria-hidden="true" size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#747c73]" />
           <span className="sr-only">Search products</span>
           <input
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search products..."
-            className="h-12 w-full rounded-full border border-zinc-300 bg-white pl-12 pr-5 text-sm text-[#141414] outline-none transition placeholder:text-zinc-400 focus:border-[#141414] focus:ring-4 focus:ring-[#bdff11]/20"
+            className="h-12 w-full rounded-full border border-white/10 bg-[#101310] pl-12 pr-5 text-sm text-[#f4f7ef] outline-none transition placeholder:text-[#697067] focus:border-[#bdff11] focus:ring-4 focus:ring-[#bdff11]/10"
           />
         </label>
 
-        <p className="mt-5 text-sm font-semibold text-zinc-500">
+        <p className="mt-5 text-sm font-semibold text-[#8f978d]">
           {visibleProducts.length} {visibleProducts.length === 1 ? "product" : "products"}
         </p>
 
@@ -86,9 +86,9 @@ export default function ShopCatalog() {
             ))}
           </div>
         ) : (
-          <div className="mt-7 rounded-[24px] border border-dashed border-zinc-300 bg-[#f7f8f4] px-6 py-16 text-center">
-            <h3 className="text-xl font-black text-[#141414]">No RC cars found</h3>
-            <p className="mt-2 text-sm text-zinc-500">Try another search or choose a different category.</p>
+          <div className="mt-7 rounded-[24px] border border-dashed border-white/15 bg-[#101310] px-6 py-16 text-center">
+            <h3 className="text-xl font-black text-[#f4f7ef]">No RC cars found</h3>
+            <p className="mt-2 text-sm text-[#8f978d]">Try another search or choose a different category.</p>
           </div>
         )}
       </section>

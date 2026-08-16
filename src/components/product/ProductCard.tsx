@@ -74,8 +74,8 @@ export default function ProductCard({ product }: ProductCardProps) {
   }
 
   return (
-    <article className="group/card relative isolate flex h-full min-w-0 flex-col overflow-hidden rounded-[22px] border border-zinc-200 bg-white shadow-[0_12px_34px_rgba(20,20,20,0.07)] transition duration-500 hover:-translate-y-1 hover:border-[#bdff11] hover:shadow-[0_22px_52px_rgba(20,20,20,0.13)]">
-      <div className="relative aspect-square shrink-0 overflow-hidden bg-[#f3f4ef]">
+    <article className="group/card relative isolate flex h-full min-w-0 flex-col overflow-hidden rounded-[22px] border border-white/[0.09] bg-[#101310] shadow-[0_16px_42px_rgba(0,0,0,0.28)] transition duration-500 hover:-translate-y-1 hover:border-[#bdff11]/70 hover:shadow-[0_24px_62px_rgba(0,0,0,0.48),0_0_34px_rgba(189,255,17,0.06)]">
+      <div className="relative aspect-square shrink-0 overflow-hidden bg-[#171b17]">
         <Link
           href={productHref}
           aria-label={product.name}
@@ -106,7 +106,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
 
           {product.badge && (
-            <span className="rounded-full border border-white/75 bg-white/90 px-2 py-1 text-[8px] font-extrabold uppercase tracking-[0.08em] text-[#141414] shadow-sm backdrop-blur-md sm:px-2.5 sm:text-[9px]">
+            <span className="rounded-full border border-white/15 bg-[#0b0e0c]/80 px-2 py-1 text-[8px] font-extrabold uppercase tracking-[0.08em] text-white shadow-sm backdrop-blur-md sm:px-2.5 sm:text-[9px]">
               {product.badge}
             </span>
           )}
@@ -117,10 +117,10 @@ export default function ProductCard({ product }: ProductCardProps) {
           onClick={() => toggleWishlist(product)}
           aria-label={wishlisted ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
           aria-pressed={wishlisted}
-          className={`absolute right-2 top-2 z-20 grid size-9 place-items-center rounded-full border shadow-sm backdrop-blur-md transition duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#141414] sm:right-3 sm:top-3 sm:size-10 ${
+          className={`absolute right-2 top-2 z-20 grid size-9 place-items-center rounded-full border shadow-sm backdrop-blur-md transition duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bdff11] sm:right-3 sm:top-3 sm:size-10 ${
             wishlisted
               ? "border-[#bdff11] bg-[#bdff11] text-[#141414]"
-              : "border-white/80 bg-white/90 text-[#141414] hover:bg-[#141414] hover:text-white"
+              : "border-white/15 bg-[#0b0e0c]/75 text-white hover:border-[#bdff11] hover:bg-[#bdff11] hover:text-[#070908]"
           }`}
         >
           <Heart
@@ -137,10 +137,10 @@ export default function ProductCard({ product }: ProductCardProps) {
             disabled={!isAvailable}
             onClick={handleAddToCart}
             aria-label={isAvailable ? `Add ${product.name} to cart` : `${product.name} is out of stock`}
-            className={`group/cart relative flex h-10 w-full items-center justify-center overflow-hidden px-3 text-xs font-extrabold transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#bdff11] sm:h-11 sm:text-sm ${
+            className={`group/cart relative flex h-10 w-full items-center justify-center overflow-hidden px-3 text-xs font-extrabold rounded-t-2xl md:rounded-t-3xl transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#bdff11] sm:h-11 sm:text-sm ${
               isAvailable
-                ? "bg-[#141414] text-white hover:bg-[#bdff11] hover:text-[#141414] active:scale-[0.99]"
-                : "cursor-not-allowed bg-zinc-400 text-white"
+                ? "bg-[#bdff11] text-[#070908] hover:bg-[#d1ff59] active:scale-[0.99]"
+                : "cursor-not-allowed bg-[#394037] text-[#8f978d]"
             }`}
           >
             {cartStatus === "added" ? (
@@ -170,15 +170,15 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       <div className="flex flex-1 flex-col p-3 sm:p-4">
         <div className="flex min-w-0 items-center justify-between gap-2">
-          <p className="min-w-0 truncate text-[9px] font-extrabold uppercase tracking-[0.13em] text-[#78a800] sm:text-[10px]">
+          <p className="min-w-0 truncate text-[9px] font-extrabold uppercase tracking-[0.13em] text-[#bdff11] sm:text-[10px]">
             {product.category}
           </p>
 
           <span
             className={`shrink-0 rounded-full px-2 py-1 text-[8px] font-bold sm:text-[9px] ${
               isAvailable
-                ? "bg-[#bdff11]/20 text-[#587b00]"
-                : "bg-red-50 text-red-600"
+                ? "bg-[#bdff11]/10 text-[#bdff11]"
+                : "bg-red-500/10 text-red-400"
             }`}
           >
             {isAvailable ? `in stock` : "Out of stock"}
@@ -186,23 +186,23 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         <Link href={productHref} className="mt-2">
-          <h3 className="line-clamp-2 text-sm font-bold leading-5 text-[#141414] transition-colors hover:text-[#6f9900] sm:text-base sm:leading-[22px]">
+          <h3 className="line-clamp-2 text-sm font-bold leading-5 text-[#f4f7ef] transition-colors hover:text-[#bdff11] sm:text-base sm:leading-[22px]">
             {product.name}
           </h3>
         </Link>
 
-        <p className="mt-1 line-clamp-2 text-[10px] leading-4 text-zinc-500 sm:text-xs sm:leading-5">
+        <p className="mt-1 line-clamp-2 text-[10px] leading-4 text-[#8f978d] sm:text-xs sm:leading-5">
           {product.shortDescription}
         </p>
 
-        <div className="mt-3 flex items-end justify-between gap-2 border-t border-zinc-200 pt-3">
+        <div className="mt-3 flex items-end justify-between gap-2 border-t border-white/[0.08] pt-3">
           <div className="flex min-w-0 flex-wrap items-baseline gap-1 sm:gap-2">
-            <span className="text-sm font-black text-[#141414] sm:text-lg">
+            <span className="text-sm font-black text-[#f4f7ef] sm:text-lg">
               {priceFormatter.format(product.price)}
             </span>
 
             {product.compareAtPrice && product.compareAtPrice > product.price && (
-              <span className="text-[9px] font-semibold text-zinc-400 line-through sm:text-[11px]">
+              <span className="text-[9px] font-semibold text-[#697067] line-through sm:text-[11px]">
                 {priceFormatter.format(product.compareAtPrice)}
               </span>
             )}
@@ -212,12 +212,12 @@ export default function ProductCard({ product }: ProductCardProps) {
             <div className="flex shrink-0 items-center gap-1">
               <Star
                 aria-hidden="true"
-                className="size-3 fill-[#bdff11] text-[#7aa500] sm:size-3.5"
+                className="size-3 fill-[#bdff11] text-[#bdff11] sm:size-3.5"
               />
-              <span className="text-[10px] font-extrabold text-[#141414] sm:text-xs">
+              <span className="text-[10px] font-extrabold text-[#f4f7ef] sm:text-xs">
                 {product.rating.toFixed(1)}
               </span>
-              <span className="hidden text-[9px] text-zinc-400 sm:inline">
+              <span className="hidden text-[9px] text-[#697067] sm:inline">
                 ({product.reviewCount ?? 0})
               </span>
             </div>
