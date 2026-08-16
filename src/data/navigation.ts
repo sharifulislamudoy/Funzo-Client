@@ -36,11 +36,6 @@ export const desktopNavigation: NavigationItem[] = [
     href: "/categories",
     icon: LayoutGrid,
   },
-  {
-    label: "Orders",
-    href: "/orders",
-    icon: PackageCheck,
-  },
 ];
 
 export const bottomNavigation: NavigationItem[] = [

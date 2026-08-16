@@ -17,7 +17,9 @@ import { useCart } from "@/context/CartContext";
 import { desktopNavigation } from "@/data/navigation";
 
 function isCurrentRoute(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  return href === "/"
+    ? pathname === "/"
+    : pathname.startsWith(href);
 }
 
 type RoundActionProps = {
@@ -98,18 +100,12 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={
-          isHomePage
-            ? "absolute inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4 lg:px-8"
-            : "sticky top-0 z-50 border-b border-zinc-200/80 bg-white"
-        }
-      >
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
         <div
-          className={`mx-auto grid w-full max-w-7xl grid-cols-[48px_minmax(0,1fr)_48px] items-center transition-all duration-300 lg:grid-cols-[minmax(220px,1fr)_auto_minmax(220px,1fr)] ${
+          className={`pointer-events-auto relative mx-auto mt-3 grid h-[62px] w-[calc(100%-1.5rem)] max-w-7xl grid-cols-[48px_minmax(0,1fr)_48px] items-center rounded-full border px-2.5 backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:mt-4 sm:h-[68px] sm:w-[calc(100%-2.5rem)] sm:px-4 lg:w-[calc(100%-4rem)] lg:grid-cols-[minmax(220px,1fr)_auto_minmax(220px,1fr)] lg:px-5 ${
             isHomePage
-              ? "h-[62px] rounded-full border border-white/70 bg-white/88 px-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.2)] backdrop-blur-xl sm:h-[68px] sm:px-4 lg:px-5"
-              : "h-[70px] px-4 sm:h-[76px] sm:px-6 lg:px-8"
+              ? "border-white/70 bg-white/88 shadow-[0_12px_40px_rgba(0,0,0,0.2)]"
+              : "border-zinc-200/90 bg-white shadow-[0_12px_35px_rgba(20,20,20,0.1)]"
           }`}
         >
           {/* Left side */}
@@ -136,10 +132,10 @@ export default function Navbar() {
             <BrandLogo />
           </div>
 
-          {/* Desktop middle navigation */}
+          {/* Desktop navigation */}
           <nav
             aria-label="Primary navigation"
-            className={`hidden items-center gap-1 rounded-full border p-1.5 lg:flex ${
+            className={`hidden items-center gap-1 rounded-full border p-1.5 transition-[background-color,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none lg:flex ${
               isHomePage
                 ? "border-black/10 bg-white/55"
                 : "border-zinc-200 bg-[#f7f8f4]"
@@ -171,7 +167,10 @@ export default function Navbar() {
               <RoundAction
                 label="Wishlist"
                 href="/wishlist"
-                active={isCurrentRoute(pathname, "/wishlist")}
+                active={isCurrentRoute(
+                  pathname,
+                  "/wishlist",
+                )}
               >
                 <Heart
                   aria-hidden="true"
@@ -183,7 +182,10 @@ export default function Navbar() {
               <RoundAction
                 label="Orders"
                 href="/orders"
-                active={isCurrentRoute(pathname, "/orders")}
+                active={isCurrentRoute(
+                  pathname,
+                  "/orders",
+                )}
               >
                 <PackageCheck
                   aria-hidden="true"
@@ -207,6 +209,16 @@ export default function Navbar() {
           </div>
         </div>
       </header>
+
+      {/* Non-home page content spacing */}
+      <div
+        aria-hidden="true"
+        className={
+          isHomePage
+            ? "h-0 shrink-0"
+            : "h-[86px] shrink-0 sm:h-[100px]"
+        }
+      />
 
       <MenuDrawer
         open={menuOpen}
