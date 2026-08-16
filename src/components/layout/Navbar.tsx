@@ -104,9 +104,9 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 max-w-7xl mx-auto px-4  lg:px-8">
         <div
-          className={`pointer-events-auto relative mx-auto mt-3 grid h-[62px] w-[calc(100%-1.5rem)] max-w-7xl grid-cols-[48px_minmax(0,1fr)_48px] items-center rounded-full border px-2.5 backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:mt-4 sm:h-[68px] sm:w-[calc(100%-2.5rem)] sm:px-4 lg:w-[calc(100%-4rem)] lg:grid-cols-[minmax(220px,1fr)_auto_minmax(220px,1fr)] lg:px-5 ${
+          className={`pointer-events-auto relative mx-auto mt-3 grid h-[62px]  grid-cols-[48px_minmax(0,1fr)_48px] items-center rounded-full border px-2.5 backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:mt-4 sm:h-[68px]  sm:px-4  lg:grid-cols-[minmax(220px,1fr)_auto_minmax(220px,1fr)] lg:px-5 ${
             isHomePage
               ? "border-white/12 bg-[#0b0e0c]/80 shadow-[0_18px_55px_rgba(0,0,0,0.38)]"
               : "border-white/10 bg-[#0b0e0c]/94 shadow-[0_18px_55px_rgba(0,0,0,0.34)]"

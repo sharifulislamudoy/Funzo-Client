@@ -14,7 +14,7 @@ export default function BrandLogo({ onClick, className = "" }: BrandLogoProps) {
       aria-label="Funzo home"
       className={`group inline-flex shrink-0 items-center gap-1 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#bdff11] ${className}`}
     >
-      <span className="grid size-10 place-items-center overflow-hidden">
+      <span className="grid size-10 place-items-center overflow-hidden mt-3">
         <Image
           src="/logo.png"
           alt=""
