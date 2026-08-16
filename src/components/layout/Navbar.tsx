@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, type ReactNode } from "react";
+import { Suspense, useCallback, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -13,7 +13,9 @@ import {
 import BrandLogo from "@/components/layout/BrandLogo";
 import CartDrawer from "@/components/layout/CartDrawer";
 import MenuDrawer from "@/components/layout/MenuDrawer";
+import ShopCategoryBar from "@/components/shop/ShopCategoryBar";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 import { desktopNavigation } from "@/data/navigation";
 
 function isCurrentRoute(pathname: string, href: string) {
@@ -84,8 +86,10 @@ function RoundAction({
 export default function Navbar() {
   const pathname = usePathname();
   const { itemCount } = useCart();
+  const { itemCount: wishlistCount } = useWishlist();
 
   const isHomePage = pathname === "/";
+  const isShopPage = pathname === "/shop";
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -167,6 +171,7 @@ export default function Navbar() {
               <RoundAction
                 label="Wishlist"
                 href="/wishlist"
+                count={wishlistCount}
                 active={isCurrentRoute(
                   pathname,
                   "/wishlist",
@@ -208,6 +213,12 @@ export default function Navbar() {
             </RoundAction>
           </div>
         </div>
+
+        {isShopPage && (
+          <Suspense fallback={<div className="h-[54px]" />}>
+            <ShopCategoryBar />
+          </Suspense>
+        )}
       </header>
 
       {/* Non-home page content spacing */}
@@ -216,7 +227,9 @@ export default function Navbar() {
         className={
           isHomePage
             ? "h-0 shrink-0"
-            : "h-[86px] shrink-0 sm:h-[100px]"
+            : isShopPage
+              ? "h-[148px] shrink-0 sm:h-[160px]"
+              : "h-[86px] shrink-0 sm:h-[100px]"
         }
       />
 
