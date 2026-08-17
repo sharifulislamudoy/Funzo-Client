@@ -56,7 +56,7 @@ export default function FeaturedProductsSection({
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3 xl:grid-cols-4">
           {adminFeaturedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

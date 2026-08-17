@@ -206,7 +206,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </h3>
         </Link>
 
-        <p className="mt-1 hidden text-xs leading-5 text-[#8f978d] sm:line-clamp-2">
+        <p className="mt-1  text-xs leading-5 text-[#8f978d] sm:line-clamp-2">
           {product.shortDescription}
         </p>
 
