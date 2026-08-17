@@ -4,7 +4,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Check, Heart, ShoppingCart, Star } from "lucide-react";
+import { Check, Heart, ShoppingCart, Star, Zap } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
@@ -13,9 +14,9 @@ import type { ProductCardProps } from "@/types/product";
 type CartStatus = "idle" | "added";
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const router = useRouter();
   const { addItem } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
-
   const [cartStatus, setCartStatus] = useState<CartStatus>("idle");
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -36,25 +37,18 @@ export default function ProductCard({ product }: ProductCardProps) {
   );
 
   const discountPercentage = useMemo(() => {
-    if (
-      !product.compareAtPrice ||
-      product.compareAtPrice <= product.price
-    ) {
+    if (!product.compareAtPrice || product.compareAtPrice <= product.price) {
       return 0;
     }
 
     return Math.round(
-      ((product.compareAtPrice - product.price) /
-        product.compareAtPrice) *
-        100,
+      ((product.compareAtPrice - product.price) / product.compareAtPrice) * 100,
     );
   }, [product.compareAtPrice, product.price]);
 
   useEffect(() => {
     return () => {
-      if (resetTimerRef.current) {
-        clearTimeout(resetTimerRef.current);
-      }
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
     };
   }, []);
 
@@ -70,13 +64,19 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     setCartStatus("added");
 
-    if (resetTimerRef.current) {
-      clearTimeout(resetTimerRef.current);
-    }
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
 
     resetTimerRef.current = setTimeout(() => {
       setCartStatus("idle");
     }, 1500);
+  }
+
+  function handleBuyNow() {
+    if (!isAvailable) return;
+
+    router.push(
+      `/checkout?mode=buy-now&product=${encodeURIComponent(product.slug)}&quantity=1`,
+    );
   }
 
   return (
@@ -140,51 +140,6 @@ export default function ProductCard({ product }: ProductCardProps) {
             className={wishlisted ? "fill-current" : ""}
           />
         </button>
-
-        {/* Tablet and desktop image overlay cart button */}
-        <div className="absolute inset-x-0 bottom-0 z-20 hidden translate-y-0 opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:block lg:translate-y-[calc(100%+1rem)] lg:opacity-0 lg:group-hover/card:translate-y-0 lg:group-hover/card:opacity-100">
-          <button
-            type="button"
-            disabled={!isAvailable}
-            onClick={handleAddToCart}
-            aria-label={
-              isAvailable
-                ? `Add ${product.name} to cart`
-                : `${product.name} is out of stock`
-            }
-            className={`group/cart relative flex h-11 w-full items-center justify-center overflow-hidden rounded-t-3xl px-3 text-sm font-extrabold transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#bdff11] ${
-              isAvailable
-                ? "bg-[#bdff11] text-[#070908] hover:bg-[#d1ff59] active:scale-[0.99]"
-                : "cursor-not-allowed bg-[#394037] text-[#8f978d]"
-            }`}
-          >
-            {cartStatus === "added" ? (
-              <span className="flex items-center gap-2">
-                <Check
-                  aria-hidden="true"
-                  size={18}
-                  strokeWidth={2.6}
-                />
-                Added to cart
-              </span>
-            ) : (
-              <>
-                <span className="transition-all duration-300 lg:group-hover/cart:-translate-y-8 lg:group-hover/cart:opacity-0">
-                  {isAvailable ? "Add to cart" : "Out of stock"}
-                </span>
-
-                {isAvailable && (
-                  <ShoppingCart
-                    aria-hidden="true"
-                    size={21}
-                    strokeWidth={2.4}
-                    className="pointer-events-none absolute translate-y-8 opacity-0 transition-all duration-300 lg:group-hover/cart:translate-y-0 lg:group-hover/cart:opacity-100"
-                  />
-                )}
-              </>
-            )}
-          </button>
-        </div>
       </div>
 
       <div className="flex flex-1 flex-col p-3 sm:p-4">
@@ -210,7 +165,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           </h3>
         </Link>
 
-        {/* Hidden on mobile */}
         <p className="mt-1 hidden text-xs leading-5 text-[#8f978d] sm:line-clamp-2">
           {product.shortDescription}
         </p>
@@ -236,11 +190,9 @@ export default function ProductCard({ product }: ProductCardProps) {
                   aria-hidden="true"
                   className="size-3 fill-[#bdff11] text-[#bdff11] sm:size-3.5"
                 />
-
                 <span className="text-[10px] font-extrabold text-[#f4f7ef] sm:text-xs">
                   {product.rating.toFixed(1)}
                 </span>
-
                 <span className="hidden text-[9px] text-[#697067] sm:inline">
                   ({product.reviewCount ?? 0})
                 </span>
@@ -248,45 +200,61 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
 
-          {/* Mobile cart button below price and rating */}
-          <button
-            type="button"
-            disabled={!isAvailable}
-            onClick={handleAddToCart}
-            aria-label={
-              isAvailable
-                ? `Add ${product.name} to cart`
-                : `${product.name} is out of stock`
-            }
-            className={`mt-3 flex h-9 w-full items-center justify-center gap-1.5 rounded-xl px-2 text-[11px] font-extrabold transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bdff11] sm:hidden ${
-              isAvailable
-                ? "bg-[#bdff11] text-[#070908] hover:bg-[#d1ff59] active:scale-[0.98]"
-                : "cursor-not-allowed bg-[#394037] text-[#8f978d]"
-            }`}
-          >
-            {cartStatus === "added" ? (
-              <>
-                <Check
+          <div className="mt-3 grid grid-cols-[minmax(0,1fr)_40px] gap-2 sm:grid-cols-[minmax(0,1fr)_44px]">
+            <button
+              type="button"
+              disabled={!isAvailable}
+              onClick={handleBuyNow}
+              aria-label={
+                isAvailable
+                  ? `Buy ${product.name} now`
+                  : `${product.name} is out of stock`
+              }
+              className={`flex h-10 min-w-0 items-center justify-center gap-1.5 rounded-xl px-2 text-[11px] font-black transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bdff11] sm:h-11 sm:gap-2 sm:px-4 sm:text-sm ${
+                isAvailable
+                  ? "bg-[#bdff11] text-[#070908] hover:-translate-y-0.5 hover:bg-[#d1ff59] hover:shadow-[0_10px_24px_rgba(189,255,17,0.16)] active:translate-y-0"
+                  : "cursor-not-allowed bg-[#394037] text-[#8f978d]"
+              }`}
+            >
+              {isAvailable && (
+                <Zap
                   aria-hidden="true"
-                  size={15}
-                  strokeWidth={2.7}
+                  className="size-3.5 fill-current sm:size-4"
+                  strokeWidth={2.4}
                 />
-                Added to cart
-              </>
-            ) : (
-              <>
-                {isAvailable && (
-                  <ShoppingCart
-                    aria-hidden="true"
-                    size={15}
-                    strokeWidth={2.4}
-                  />
-                )}
+              )}
+              <span className="truncate">
+                {isAvailable ? "Buy now" : "Out of stock"}
+              </span>
+            </button>
 
-                {isAvailable ? "Add to cart" : "Out of stock"}
-              </>
-            )}
-          </button>
+            <button
+              type="button"
+              disabled={!isAvailable}
+              onClick={handleAddToCart}
+              title={cartStatus === "added" ? "Added to cart" : "Add to cart"}
+              aria-label={
+                isAvailable
+                  ? cartStatus === "added"
+                    ? `${product.name} added to cart`
+                    : `Add ${product.name} to cart`
+                  : `${product.name} is out of stock`
+              }
+              className={`grid h-10 w-10 place-items-center rounded-xl border transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bdff11] sm:h-11 sm:w-11 ${
+                isAvailable
+                  ? cartStatus === "added"
+                    ? "border-[#bdff11] bg-[#bdff11]/10 text-[#bdff11]"
+                    : "border-white/15 bg-white/[0.035] text-[#d9ded5] hover:border-[#bdff11] hover:text-[#bdff11]"
+                  : "cursor-not-allowed border-white/[0.06] bg-[#242824] text-[#697067]"
+              }`}
+            >
+              {cartStatus === "added" ? (
+                <Check aria-hidden="true" size={17} strokeWidth={2.7} />
+              ) : (
+                <ShoppingCart aria-hidden="true" size={17} strokeWidth={2.3} />
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </article>

@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useMemo, useState } from "react";
-import { Check, Heart, Minus, Plus, ShoppingCart, Truck } from "lucide-react";
+import { Check, Heart, Minus, Plus, ShoppingCart, Truck, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { useCart } from "@/context/CartContext";
@@ -46,8 +46,11 @@ export default function ProductDetails({ product }: { product: FunzoProduct }) {
   }
 
   function buyNow() {
-    addToCart();
-    router.push("/checkout");
+    if (product.stock <= 0) return;
+
+    router.push(
+      `/checkout?mode=buy-now&product=${encodeURIComponent(product.slug)}&quantity=${quantity}`,
+    );
   }
 
   return (
@@ -129,11 +132,14 @@ export default function ProductDetails({ product }: { product: FunzoProduct }) {
             <button type="button" onClick={() => setQuantity((current) => Math.min(product.stock, current + 1))} aria-label="Increase quantity" className="grid size-9 place-items-center rounded-full transition hover:bg-[#bdff11] hover:text-[#070908]"><Plus size={16} /></button>
           </div>
 
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <button type="button" onClick={addToCart} className="flex h-13 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-6 text-sm font-extrabold text-[#f4f7ef] transition duration-300 hover:border-[#bdff11] hover:text-[#bdff11]">
+          <div className="mt-4 grid gap-3 sm:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
+            <button type="button" disabled={product.stock <= 0} onClick={addToCart} className="flex h-13 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-6 text-sm font-extrabold text-[#f4f7ef] transition duration-300 hover:border-[#bdff11] hover:text-[#bdff11] disabled:cursor-not-allowed disabled:border-white/[0.06] disabled:text-[#697067]">
               {added ? <Check size={18} /> : <ShoppingCart size={18} />}{added ? "Added to cart" : "Add to bag"}
             </button>
-            <button type="button" onClick={buyNow} className="h-13 rounded-full bg-[#bdff11] px-6 text-sm font-extrabold text-[#070908] transition duration-300 hover:-translate-y-0.5 hover:bg-[#d0ff55] hover:shadow-[0_14px_34px_rgba(189,255,17,0.16)]">Buy now</button>
+            <button type="button" disabled={product.stock <= 0} onClick={buyNow} className="flex h-13 items-center justify-center gap-2 rounded-full bg-[#bdff11] px-6 text-sm font-black text-[#070908] transition duration-300 hover:-translate-y-0.5 hover:bg-[#d0ff55] hover:shadow-[0_14px_34px_rgba(189,255,17,0.16)] disabled:cursor-not-allowed disabled:bg-[#394037] disabled:text-[#8f978d]">
+              <Zap size={18} className="fill-current" aria-hidden="true" />
+              {product.stock > 0 ? "Buy now" : "Out of stock"}
+            </button>
           </div>
         </div>
       </div>
