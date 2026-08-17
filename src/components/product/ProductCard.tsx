@@ -15,6 +15,7 @@ type CartStatus = "idle" | "added";
 export default function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
+
   const [cartStatus, setCartStatus] = useState<CartStatus>("idle");
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -35,12 +36,17 @@ export default function ProductCard({ product }: ProductCardProps) {
   );
 
   const discountPercentage = useMemo(() => {
-    if (!product.compareAtPrice || product.compareAtPrice <= product.price) {
+    if (
+      !product.compareAtPrice ||
+      product.compareAtPrice <= product.price
+    ) {
       return 0;
     }
 
     return Math.round(
-      ((product.compareAtPrice - product.price) / product.compareAtPrice) * 100,
+      ((product.compareAtPrice - product.price) /
+        product.compareAtPrice) *
+        100,
     );
   }, [product.compareAtPrice, product.price]);
 
@@ -115,7 +121,11 @@ export default function ProductCard({ product }: ProductCardProps) {
         <button
           type="button"
           onClick={() => toggleWishlist(product)}
-          aria-label={wishlisted ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
+          aria-label={
+            wishlisted
+              ? `Remove ${product.name} from wishlist`
+              : `Add ${product.name} to wishlist`
+          }
           aria-pressed={wishlisted}
           className={`absolute right-2 top-2 z-20 grid size-9 place-items-center rounded-full border shadow-sm backdrop-blur-md transition duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bdff11] sm:right-3 sm:top-3 sm:size-10 ${
             wishlisted
@@ -131,13 +141,18 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
         </button>
 
-        <div className="absolute inset-x-0 bottom-0 z-20 translate-y-0 opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:translate-y-[calc(100%+1rem)] lg:opacity-0 lg:group-hover/card:translate-y-0 lg:group-hover/card:opacity-100">
+        {/* Tablet and desktop image overlay cart button */}
+        <div className="absolute inset-x-0 bottom-0 z-20 hidden translate-y-0 opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:block lg:translate-y-[calc(100%+1rem)] lg:opacity-0 lg:group-hover/card:translate-y-0 lg:group-hover/card:opacity-100">
           <button
             type="button"
             disabled={!isAvailable}
             onClick={handleAddToCart}
-            aria-label={isAvailable ? `Add ${product.name} to cart` : `${product.name} is out of stock`}
-            className={`group/cart relative flex h-10 w-full items-center justify-center overflow-hidden px-3 text-xs font-extrabold rounded-t-2xl md:rounded-t-3xl transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#bdff11] sm:h-11 sm:text-sm ${
+            aria-label={
+              isAvailable
+                ? `Add ${product.name} to cart`
+                : `${product.name} is out of stock`
+            }
+            className={`group/cart relative flex h-11 w-full items-center justify-center overflow-hidden rounded-t-3xl px-3 text-sm font-extrabold transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#bdff11] ${
               isAvailable
                 ? "bg-[#bdff11] text-[#070908] hover:bg-[#d1ff59] active:scale-[0.99]"
                 : "cursor-not-allowed bg-[#394037] text-[#8f978d]"
@@ -145,7 +160,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           >
             {cartStatus === "added" ? (
               <span className="flex items-center gap-2">
-                <Check aria-hidden="true" size={18} strokeWidth={2.6} />
+                <Check
+                  aria-hidden="true"
+                  size={18}
+                  strokeWidth={2.6}
+                />
                 Added to cart
               </span>
             ) : (
@@ -181,7 +200,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 : "bg-red-500/10 text-red-400"
             }`}
           >
-            {isAvailable ? `in stock` : "Out of stock"}
+            {isAvailable ? "In stock" : "Out of stock"}
           </span>
         </div>
 
@@ -191,37 +210,83 @@ export default function ProductCard({ product }: ProductCardProps) {
           </h3>
         </Link>
 
-        <p className="mt-1 line-clamp-2 text-[10px] leading-4 text-[#8f978d] sm:text-xs sm:leading-5">
+        {/* Hidden on mobile */}
+        <p className="mt-1 hidden text-xs leading-5 text-[#8f978d] sm:line-clamp-2">
           {product.shortDescription}
         </p>
 
-        <div className="mt-3 flex items-end justify-between gap-2 border-t border-white/[0.08] pt-3">
-          <div className="flex min-w-0 flex-wrap items-baseline gap-1 sm:gap-2">
-            <span className="text-sm font-black text-[#f4f7ef] sm:text-lg">
-              {priceFormatter.format(product.price)}
-            </span>
-
-            {product.compareAtPrice && product.compareAtPrice > product.price && (
-              <span className="text-[9px] font-semibold text-[#697067] line-through sm:text-[11px]">
-                {priceFormatter.format(product.compareAtPrice)}
+        <div className="mt-auto pt-3">
+          <div className="flex items-end justify-between gap-2 border-t border-white/[0.08] pt-3">
+            <div className="flex min-w-0 flex-wrap items-baseline gap-1 sm:gap-2">
+              <span className="text-sm font-black text-[#f4f7ef] sm:text-lg">
+                {priceFormatter.format(product.price)}
               </span>
+
+              {product.compareAtPrice &&
+                product.compareAtPrice > product.price && (
+                  <span className="text-[9px] font-semibold text-[#697067] line-through sm:text-[11px]">
+                    {priceFormatter.format(product.compareAtPrice)}
+                  </span>
+                )}
+            </div>
+
+            {product.rating !== undefined && (
+              <div className="flex shrink-0 items-center gap-1">
+                <Star
+                  aria-hidden="true"
+                  className="size-3 fill-[#bdff11] text-[#bdff11] sm:size-3.5"
+                />
+
+                <span className="text-[10px] font-extrabold text-[#f4f7ef] sm:text-xs">
+                  {product.rating.toFixed(1)}
+                </span>
+
+                <span className="hidden text-[9px] text-[#697067] sm:inline">
+                  ({product.reviewCount ?? 0})
+                </span>
+              </div>
             )}
           </div>
 
-          {product.rating !== undefined && (
-            <div className="flex shrink-0 items-center gap-1">
-              <Star
-                aria-hidden="true"
-                className="size-3 fill-[#bdff11] text-[#bdff11] sm:size-3.5"
-              />
-              <span className="text-[10px] font-extrabold text-[#f4f7ef] sm:text-xs">
-                {product.rating.toFixed(1)}
-              </span>
-              <span className="hidden text-[9px] text-[#697067] sm:inline">
-                ({product.reviewCount ?? 0})
-              </span>
-            </div>
-          )}
+          {/* Mobile cart button below price and rating */}
+          <button
+            type="button"
+            disabled={!isAvailable}
+            onClick={handleAddToCart}
+            aria-label={
+              isAvailable
+                ? `Add ${product.name} to cart`
+                : `${product.name} is out of stock`
+            }
+            className={`mt-3 flex h-9 w-full items-center justify-center gap-1.5 rounded-xl px-2 text-[11px] font-extrabold transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bdff11] sm:hidden ${
+              isAvailable
+                ? "bg-[#bdff11] text-[#070908] hover:bg-[#d1ff59] active:scale-[0.98]"
+                : "cursor-not-allowed bg-[#394037] text-[#8f978d]"
+            }`}
+          >
+            {cartStatus === "added" ? (
+              <>
+                <Check
+                  aria-hidden="true"
+                  size={15}
+                  strokeWidth={2.7}
+                />
+                Added to cart
+              </>
+            ) : (
+              <>
+                {isAvailable && (
+                  <ShoppingCart
+                    aria-hidden="true"
+                    size={15}
+                    strokeWidth={2.4}
+                  />
+                )}
+
+                {isAvailable ? "Add to cart" : "Out of stock"}
+              </>
+            )}
+          </button>
         </div>
       </div>
     </article>
